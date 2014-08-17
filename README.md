@@ -3,22 +3,25 @@
 DANGER!
 =======
 
+This code can drive 
+
 This code works with the PRU units on the Beagle Bone and can easily
 cause *hard crashes*.  It is still being debugged and developed.
 Be careful hot-plugging things into the headers -- it is possible to
 damage the pin drivers and cause problems in the ARM, especially if
 there are +5V signals involved.
 
+How To
+========
+* Disable HDMI (edit /boot/uboot/Env.txt)
+* Make
+* Install device tree overlay (./bin/run-ledscape will do this)
+* Adjust your matrix dimensions in default.config and ./src/ledscape/ledscape.c
+* run sketch of your choosing ./bin/opc-rx, or ./bin/matrix-test default.config
 
 Overview
 ========
 
-The WS281x LED chips are built like shift registers and make for very
-easy LED strip construction.  The signals are duty-cycle modulated,
-with a 0 measuring 250 ns long and a 1 being 600 ns long, and 1250 ns
-between bits.  Since this doesn't map to normal SPI hardware and requires
-an 800 KHz bit clock, it is typically handled with a dedicated microcontroller
-or DMA hardware on something like the Teensy 3.
 
 However, the TI AM335x ARM Cortex-A8 in the BeagleBone Black has two
 programmable "microcontrollers" built into the CPU that can handle realtime
@@ -119,3 +122,10 @@ LED Strips
 
 * http://www.adafruit.com/products/1138
 * http://www.adafruit.com/datasheets/WS2811.pdf
+
+The WS281x LED chips are built like shift registers and make for very
+easy LED strip construction.  The signals are duty-cycle modulated,
+with a 0 measuring 250 ns long and a 1 being 600 ns long, and 1250 ns
+between bits.  Since this doesn't map to normal SPI hardware and requires
+an 800 KHz bit clock, it is typically handled with a dedicated microcontroller
+or DMA hardware on something like the Teensy 3.
